@@ -31,6 +31,8 @@ psql> delete from customers where customer_id = 1 ;
 ERREUR:  UPDATE ou DELETE sur la table « customers » viole la contrainte de clé étrangère « fk_customer » de la table « contacts »
 DÉTAIL : La clé (customer_id)=(1) est toujours référencée à partir de la table « contacts ».
 
+Rien n'a été modifié
+
 Avec ce type de paramétrage la suppression nécessite une suppression en cascade pour tenir compte des relations.
 
 en ajoutant
@@ -50,10 +52,18 @@ psql>\i create_tables_set_null.sql
 puis l'alimenter
 
 psql>\i insert_data.sql
-psql>select * from contacts ;
- contact_id | customer_id | contact_name |     phone      |          email           
-------------+-------------+--------------+----------------+--------------------------
-          3 |           2 | David Wright | (408)-222-1234 | david.wright@dolphin.dev
-          1 |             | John Doe     | (408)-111-1234 | john.doe@bluebird.dev
-          2 |             | Jane Doe     | (408)-111-1235 | jane.doe@bluebird.dev
+psql>\i test_delete.sql
+| contact_id | customer_id | contact_name |     phone      |          email           
+|:-----------|:------------|:-------------|:---------------|:------------------------
+|          3 |           2 | David Wright | (408)-222-1234 | david.wright@dolphin.dev
+|          1 |             | John Doe     | (408)-111-1234 | john.doe@bluebird.dev
+|          2 |             | Jane Doe     | (408)-111-1235 | jane.doe@bluebird.dev
 (3 lignes)
+
+avec ON DELETE CASCADE
+
+DELETE 1
+| contact_id | customer_id | contact_name |     phone      |          email           
+|:-----------|:------------|:-------------|:---------------|:------------------------
+|          3 |           2 | David Wright | (408)-222-1234 | david.wright@dolphin.dev
+(1 ligne)
