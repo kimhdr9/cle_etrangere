@@ -2,13 +2,13 @@ Exemples de clés étrangères
 ============================
 
 Pour rappel une clé primaire d'une table désigne une information unique d'une ligne.
-la table "conctats" a une colonne "customer_id" qui référentie la colonne "customer_id" de la table customer
-cette colonne est une clé primaire de la table "customers" mais pour "contacts" elle désigne une clé étrangère. 
+la table "contacts" a une colonne "customer_id" qui référencie la colonne "customer_id" de la table customer
+cette colonne est une clé primaire de la table "customers" mais pour "contacts" elle désigne une clé étrangère.
 
 le formalisme est le suivant :
 
 >CONSTRAINT fk_customer
->FOREIGN KEY(customer_id) 
+>FOREIGN KEY(customer_id)
 >REFERENCES customers(customer_id)
 
 Utilisation des codes sql joints :
@@ -37,22 +37,22 @@ Avec ce type de paramétrage la suppression nécessite une suppression en cascade 
 
 en ajoutant
 
->PRIMARY KEY(contact_id),
->CONSTRAINT fk_customer
->FOREIGN KEY(customer_id)
->REFERENCES customers(customer_id)
->ON DELETE SET NULL
+``PRIMARY KEY(contact_id),
+CONSTRAINT fk_customer
+FOREIGN KEY(customer_id)
+REFERENCES customers(customer_id)
+ON DELETE SET NULL``
 
-psql>\i drop_tables.sql
+``psql>\i drop_tables.sql``
 
 puis créer les tables
 
-psql>\i create_tables_set_null.sql
+``psql>\i create_tables_set_null.sql``
 
 puis l'alimenter
 
-psql>\i insert_data.sql
-psql>\i test_delete.sql
+``psql>\i insert_data.sql``
+``psql>\i test_delete.sql``
 | contact_id | customer_id | contact_name |     phone      |          email           
 |:-----------|:------------|:-------------|:---------------|:------------------------
 |          3 |           2 | David Wright | (408)-222-1234 | david.wright@dolphin.dev
